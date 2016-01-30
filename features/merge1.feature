@@ -39,3 +39,4 @@ Feature: Merge Articles
     When I follow "Foobar1"
     Then I should see "Lorem Ipsum"
     Then I should see "Merge Articles"
+    Then I should see "Article ID"
