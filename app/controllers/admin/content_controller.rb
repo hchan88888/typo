@@ -240,4 +240,22 @@ class Admin::ContentController < Admin::BaseController
   def setup_resources
     @resources = Resource.by_created_at
   end
+
+  def merge
+    case params[:merge_with]
+    when nil
+      flash[:error] = _("Error, no id is entered.")
+      return(redirect_to :action => 'edit')
+    when Article.find(params[:merge_with]).nil?
+      flash[:error] = _("Error, the id is invalid.")
+      return(redirect_to :action => 'edit')
+    else
+      @merged_article = Article.find(params[:merge_with])  
+    end
+    @article = Article.find(params[:id])  
+    @article.merger(@merged_article)
+    return(redirect_to :action => 'edit')
+  
+  end
+
 end

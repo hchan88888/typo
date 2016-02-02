@@ -466,4 +466,17 @@ class Article < Content
     to = to - 1 # pull off 1 second so we don't overlap onto the next day
     return from..to
   end
+  
+  def merger(merged)
+    body_extended = body + extended
+    merged_body_extended = merged.body + merged.extended
+    self.body_and_extended = body_extended + merged_body_extended
+    self_comments = Article.find(self.article_id).published_comments
+    merged_comments = Article.find(merged.article_id).published_comments
+    self.published_comments = self_comments + merged_comments
+    merged.destroy
+
+  end
+  
+  
 end
