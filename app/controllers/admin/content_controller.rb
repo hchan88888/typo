@@ -245,10 +245,10 @@ class Admin::ContentController < Admin::BaseController
     case params[:merge_with]
     when nil
       flash[:error] = _("Error, no id is entered.")
-      return(redirect_to :action => 'edit')
+      return(redirect_to :action => 'index')
     when Article.find(params[:merge_with]).nil?
       flash[:error] = _("Error, the id is invalid.")
-      return(redirect_to :action => 'edit')
+      return(redirect_to :action => 'index')
     else
       @merged_article = Article.find(params[:merge_with])  
     end
