@@ -51,11 +51,7 @@ Rails.application.routes.draw do
   end
 
   #for merging action in content_controller.rb
-  resources :content do
-    member do
-      get :merge
-    end
-  end
+  match 'admin/content/edit/:id/merge', :to => 'content#merge'
 
   # TrackbacksController
   resources :trackbacks
