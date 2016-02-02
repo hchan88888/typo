@@ -50,6 +50,13 @@ Rails.application.routes.draw do
     end
   end
 
+  #for merging action in content_controller.rb
+  resources :content do
+    member do
+      get :merge
+    end
+  end
+
   # TrackbacksController
   resources :trackbacks
   # I thinks it's useless. More investigating
