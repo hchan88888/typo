@@ -468,11 +468,9 @@ class Article < Content
   end
   
   def merger(merged)
-    body_extended = body + extended
-    merged_body_extended = merged.body + merged.extended
-    self.body_and_extended = body_extended + merged_body_extended
-    self_comments = Article.find(self.article_id).published_comments
-    merged_comments = Article.find(merged.article_id).published_comments
+    self.body = self.body+merged.body
+    self_comments = Article.find(self.id).published_comments
+    merged_comments = Article.find(merged.id).published_comments
     self.published_comments = self_comments + merged_comments
     merged.destroy
 

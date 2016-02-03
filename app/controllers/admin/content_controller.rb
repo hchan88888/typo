@@ -140,6 +140,16 @@ class Admin::ContentController < Admin::BaseController
   def real_action_for(action); { 'add' => :<<, 'remove' => :delete}[action]; end
 
   def new_or_edit
+    
+    # added for merge
+    # merge button hit
+    if params[:commit] == 'Merge'
+      merge
+      redirect_to :action => 'index'
+      return
+    end
+    
+    
     id = params[:id]
     id = params[:article][:id] if params[:article] && params[:article][:id]
     @article = Article.get_or_build_article(id)
@@ -242,24 +252,20 @@ class Admin::ContentController < Admin::BaseController
   end
 
   def merge
-    case params[:merge_with]
-    when nil
-      flash[:error] = _("Error, no id is entered.")
-      redirect_to :action => 'index'
-      return
-    when Article.find(params[:merge_with]).nil?
-      flash[:error] = _("Error, the id is invalid.")
-      redirect_to :action => 'index'
-      return
-    else
-      @merged_article = Article.find(params[:merge_with])  
+    begin 
+      @merged_article = Article.find(params[:merge_with])
+    rescue
+      flash[:error] = _("Error, the id is not valid")
+      return    
     end
-    @article = Article.find(params[:oid])  
+    if params[:merge_with] == params[:id]
+      flash[:error] = _("Error, the id is not valid")
+      return
+    end
+    @article = Article.find(params[:id])  
     @article.merger(@merged_article)
     flash[:notice] = _('Article was successfully merged')
-    redirect_to :action => 'index'
-    return
-  
+
   end
 
 end
