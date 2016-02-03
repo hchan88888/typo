@@ -416,6 +416,16 @@ class Article < Content
     user.admin? || user_id == user.id
   end
 
+  def merger(merged)
+    self.body = self.body + merged.body
+    self_comments = Article.find(self.id).published_comments
+    merged_comments = Article.find(merged.id).published_comments
+    self.published_comments = self_comments + merged_comments
+    merged.destroy
+  end
+
+
+
   protected
 
   def set_published_at
@@ -467,14 +477,6 @@ class Article < Content
     return from..to
   end
   
-  def merger(merged)
-    self.body = self.body + merged.body
-    self_comments = Article.find(self.id).published_comments
-    merged_comments = Article.find(merged.id).published_comments
-    self.published_comments = self_comments + merged_comments
-    merged.destroy
 
-  end
-  
   
 end
