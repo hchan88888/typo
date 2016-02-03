@@ -264,6 +264,7 @@ class Admin::ContentController < Admin::BaseController
     end
     @article = Article.find(params[:id])  
     @article.merger(@merged_article)
+    @article.save
     flash[:notice] = _('Article was successfully merged')
 
   end
