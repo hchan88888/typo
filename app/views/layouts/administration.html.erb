@@ -21,7 +21,7 @@
           <li class="dropdown" onmouseover='$("user_menu").style.display = "block"' onmouseout='$("user_menu").style.display = "none"'>
             <a class="dropdown-toggle" href="#"><%= _("Logged in as %s", current_user.nickname)%></a>
             <ul class="dropdown-menu" id="user_menu" style='display: none'>
-              <li><%= link_to(_("New Article"), {:controller => 'content', :action => 'new'}) %></li>
+              <li><%= link_to(_("New Article"), {:controller => 'admin/content', :action => 'new'}) %></li>
               <li><%= link_to _("Profile"), { :controller => 'admin/profiles', :action => 'index'}  %></li>
               <li><%= link_to _("%s &raquo;", "Log out").html_safe, {:controller => "/accounts", :action=>"logout"} %></li>
             </ul>
