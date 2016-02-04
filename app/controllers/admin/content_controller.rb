@@ -149,14 +149,6 @@ class Admin::ContentController < Admin::BaseController
       return
     end
     
-    
-    #added to avoid loop for profile_id =3 login
-    #unless current_user.profile_id != 3
-    #  redirect_to :action => 'index'
-    #  flash[:error] = _("Error, you are not allowed to perform this action")
-    #  return
-    #end
-    ### addition ended
     id = params[:id]
     id = params[:article][:id] if params[:article] && params[:article][:id]
     @article = Article.get_or_build_article(id)
@@ -266,7 +258,7 @@ class Admin::ContentController < Admin::BaseController
       return    
     end
     if params[:merge_with] == params[:id]
-      flash[:error] = _("Error, the id is not valid")
+      flash[:error] = _("Error, you cannot merge an article with itself!")
       return
     end
     @article = Article.find(params[:id])  
