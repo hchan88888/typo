@@ -151,11 +151,11 @@ class Admin::ContentController < Admin::BaseController
     
     
     #added to avoid loop for profile_id =3 login
-    #unless current_user.profile_id != 3
-    #  redirect_to :action => 'index'
-    #  flash[:error] = _("Error, you are not allowed to perform this action")
-    #  return
-    #end
+    unless current_user.profile_id != 3
+      redirect_to :action => 'index'
+      flash[:error] = _("Error, you are not allowed to perform this action")
+      return
+    end
     ### addition ended
     id = params[:id]
     id = params[:article][:id] if params[:article] && params[:article][:id]
