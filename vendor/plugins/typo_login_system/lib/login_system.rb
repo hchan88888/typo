@@ -53,9 +53,8 @@ module LoginSystem
 
     def redirect_back_or_default(default)
       
-      g = session[:return_to]
       session[:return_to] = nil    
-      redirect_to(g || default)
+      redirect_to(default)
       
       #redirect_to(session[:return_to] || default)
       #session[:return_to] = nil
